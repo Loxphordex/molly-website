@@ -1,5 +1,6 @@
 import React from 'react'
 import images from '../../images/slideshow-images'
+import { Image, CloudinaryContext } from 'cloudinary-react'
 import './Slideshow.css'
 
 export default class Slideshow extends React.Component {
@@ -22,7 +23,7 @@ export default class Slideshow extends React.Component {
 
       // Then set a timeout for when the transition stage is over,
       // then show the changed image
-      setTimeout(() => {
+      await setTimeout(() => {
 
         if (index < images.length - 1) {
             this.setState({
@@ -39,9 +40,10 @@ export default class Slideshow extends React.Component {
             })
         }
 
-        this.setState({ transitionStatus: '' })
-      }, 1000)
-
+        setTimeout(() => {
+          this.setState({ transitionStatus: '' })
+        }, 1000);
+      }, 100)
 
     }, 5000)
   }
@@ -52,7 +54,9 @@ export default class Slideshow extends React.Component {
     return(
       <section className='slideshow-wrapper'>
         <div className={`slide-image-area ${transitionStatus}`}>
-          <img src={currentImage.url} alt={currentImage.name} />
+          <CloudinaryContext  cloudName='dghqlm5xb'>
+            <Image publicId={currentImage.url} />
+          </CloudinaryContext>
         </div>
       </section>
     )

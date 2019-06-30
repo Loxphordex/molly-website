@@ -18,3 +18,22 @@
   text-decoration: none;
   color: black;
 }
+
+@media only screen and (min-width: 760px) {
+  .main-nav {
+    min-height: 56px;
+  }
+  .main-nav h1 {
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  .main-nav ul {
+    float: right;
+    width: 270px;
+    margin-top: 26px;
+  }
+  .main-nav ul li {
+    margin: 0 2%;
+  }
+}
