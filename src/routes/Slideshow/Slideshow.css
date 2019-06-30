@@ -1,0 +1,17 @@
+.slide-image-area {
+  transition: all 0.3s;
+  transition-delay: 0.2s;
+}
+
+.slide-image-area img {
+  max-width: 98%;
+  max-height: 400px;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+.transitioning {
+  opacity: 0;
+}
