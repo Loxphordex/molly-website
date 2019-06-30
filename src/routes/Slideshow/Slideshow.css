@@ -1,6 +1,6 @@
 .slide-image-area {
   transition: all 0.3s;
-  transition-delay: 0.2s;
+  /* transition-delay: 0.2s; */
   margin-top: 3.5%;
 }
 
