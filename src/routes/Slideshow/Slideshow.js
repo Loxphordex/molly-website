@@ -23,7 +23,7 @@ export default class Slideshow extends React.Component {
 
       // Then set a timeout for when the transition stage is over,
       // then show the changed image
-      await setTimeout(() => {
+      setTimeout(() => {
 
         if (index < images.length - 1) {
             this.setState({
