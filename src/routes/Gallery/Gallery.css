@@ -1,0 +1,8 @@
+.gallery-image {
+  margin: 10% 0;
+}
+
+.gallery-image img {
+  width: 100%;
+  max-width: 380px;
+}
