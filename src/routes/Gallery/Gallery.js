@@ -37,10 +37,14 @@ export default class Gallery extends React.Component {
     return images.map(image => {
       return (
         <div 
-          className={`gallery-image ${image.name}`} 
-          key={image.name}
-          onClick={(event) => this.handleFullScreen(event.target.src)}>
-          <Image publicId={image.url} />
+          className={`gallery-image ${image.name}`}
+          key={image.name}>
+          <div 
+            className='gallery-image-wrapper'
+            url={image.url}
+            onClick={(event) => this.handleFullScreen(event.target.src)}>
+            <Image publicId={image.url} />
+          </div>
           <h2>{image.name}</h2>
         </div>
       )
@@ -48,6 +52,7 @@ export default class Gallery extends React.Component {
   }
 
   handleFullScreen = (url) => {
+    console.log('URL: ', url)
     this.setState({ 
       fullScreen: true,
       fullScreenImage: url,
