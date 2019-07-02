@@ -1,6 +1,6 @@
 import React from 'react'
 import images from '../../images/slideshow-images'
-import { Image, CloudinaryContext } from 'cloudinary-react'
+import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import './Slideshow.css'
 
 export default class Slideshow extends React.Component {
@@ -56,12 +56,15 @@ export default class Slideshow extends React.Component {
         <div className={`slide-image-area ${transitionStatus}`}>
           <CloudinaryContext  cloudName='dghqlm5xb'>
             {images.map(image => {
-              if (index === image.id) {
                 return(
-                  <Image publicId={image.url} />
+                  <div className={`slide-image slide-image-${image.id}`}>
+                    {index === image.id && <Image publicId={image.url} type='fetch'>
+                      <Transformation quality='60' width='900' />
+                    </Image>}
+                  </div>
                 )
-              }
-            })}
+              })
+            }
           </CloudinaryContext>
         </div>
       </section>
