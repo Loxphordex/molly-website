@@ -5,7 +5,9 @@
 .image-area {
   transition: all 0.5s;
   visibility: visible;
-  min-height: 69vh;
+  min-height: 80vh;
+  max-width: 575px;
+  margin: auto;
 }
 
 .gallery-image {
@@ -32,13 +34,8 @@
 .prev-next-area {
   padding: 0 7%;
   min-height: 40px;
-  margin-bottom: 80px;
-
-  position: absolute;
   margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 50px;
+  margin-bottom: 80px;
 
   min-width: 80%;
 }
