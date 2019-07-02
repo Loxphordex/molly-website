@@ -2,6 +2,7 @@ import React from 'react'
 import galleryImages from '../../images/gallery-images'
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import './Gallery.css'
+import './GalleryFullScreen.css'
 
 export default class Gallery extends React.Component {
   state = {
@@ -37,7 +38,7 @@ export default class Gallery extends React.Component {
 
     return images.map(image => {
       return (
-        <div 
+        <section 
           className={`gallery-image ${image.name}`}
           key={image.name}>
           <div 
@@ -48,7 +49,7 @@ export default class Gallery extends React.Component {
               <Transformation quality="61" width="808" crop="scale" />
             </Image>
           </div>
-        </div>
+        </section>
       )
     })
   }

@@ -1,0 +1,39 @@
+@media only screen and (min-width: 760px) {
+  .gallery-wrapper {
+    display: inline-block;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .image-area {
+    min-width: 70%;
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .image-area div:first-child {
+    width: 100%;
+  }
+
+  .gallery-image {
+    max-width: initial;
+  }
+
+  .gallery-image img {
+    max-width: 180px;
+    min-width: 180px;
+    max-height: 180px;
+    min-height: 180px;
+  }
+
+  .prev-next-area {
+    max-width: 300px;
+    min-width: 0;
+    margin: auto;
+
+    bottom: 30px;
+  }
+}
