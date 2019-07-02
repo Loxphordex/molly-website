@@ -9,6 +9,14 @@
   max-height: 400px;
 }
 
+.slide-image {
+  display: none;
+}
+
+.current-slideshow {
+  display: initial;
+}
+
 .transitioning {
   opacity: 0;
 }
