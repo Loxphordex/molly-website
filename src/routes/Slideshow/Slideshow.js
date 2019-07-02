@@ -50,12 +50,18 @@ export default class Slideshow extends React.Component {
 
   render() {
 
-    const { transitionStatus, currentImage } = this.state
+    const { transitionStatus, currentImage, index } = this.state
     return(
       <section className='slideshow-wrapper'>
         <div className={`slide-image-area ${transitionStatus}`}>
           <CloudinaryContext  cloudName='dghqlm5xb'>
-            <Image publicId={currentImage.url} />
+            {images.map(image => {
+              if (index === image.id) {
+                return(
+                  <Image publicId={image.url} />
+                )
+              }
+            })}
           </CloudinaryContext>
         </div>
       </section>
