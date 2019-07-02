@@ -1,6 +1,7 @@
 import React from 'react'
 import galleryImages from '../../images/gallery-images'
-import { Image, CloudinaryContext } from 'cloudinary-react'
+import axios from 'axios'
+import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import './Gallery.css'
 
 export default class Gallery extends React.Component {
@@ -44,9 +45,10 @@ export default class Gallery extends React.Component {
             className='gallery-image-wrapper'
             url={image.url}
             onClick={(event) => this.handleFullScreen(event.target.src)}>
-            <Image publicId={image.url} />
+            <Image publicId={image.url} type='fetch'>
+              <Transformation quality="61" width="808" crop="scale" />
+            </Image>
           </div>
-          <h2>{image.name}</h2>
         </div>
       )
     })
@@ -74,7 +76,7 @@ export default class Gallery extends React.Component {
         galleryDisabled: '',
         fadeOut: '',
       })
-    }, 500)
+    }, 450)
   }
 
   handleNext = async() => {

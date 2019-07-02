@@ -1,16 +1,20 @@
 .image-area {
   transition: all 0.5s;
   visibility: visible;
+  min-height: 70vh;
 }
 
 .gallery-image {
-  margin: 10% auto;
-  max-width: 380px;
+  display: inline-block;
+  max-width: 33%;
 }
 
 .gallery-image img {
-  max-width: 380px;
-  max-height: 400px;
+  max-width: 100px;
+  min-width: 100px;
+  max-height: 100px;
+  min-height: 100px;
+  object-fit: cover;
 }
 
 .gallery-image h2 {
@@ -20,9 +24,8 @@
 }
 
 .prev-next-area {
-  margin-bottom: 30%;
   padding: 0 5%;
-  transition: all 0.5s;
+  
 }
 
 .prev-next-area button {
