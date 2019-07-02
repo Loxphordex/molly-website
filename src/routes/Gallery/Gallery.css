@@ -14,10 +14,8 @@
 }
 
 .gallery-image h2 {
-  text-align: left;
-  margin-left: 5%;
   pointer-events: none;
-
+  margin-top: 2%;
   font-size: 0.85em;
 }
 
@@ -39,6 +37,10 @@
 
 .gallery-next {
   float: right;
+}
+
+.last-page, .first-page {
+  color: rgb(163, 163, 163);
 }
 
 
@@ -80,6 +82,7 @@
 }
 
 .gallery-disabled {
+  overflow: hidden;
   visibility: hidden;
   transition: all 0.5s;
 }

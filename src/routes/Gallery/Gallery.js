@@ -93,8 +93,24 @@ export default class Gallery extends React.Component {
     }
   }
 
+  checkIfLastPage = () => {
+    const { images } = this.state
+
+    if (!images) return ''
+
+    return (images.length === 12) ? '' : 'last-page'
+  }
+
+  checkIfFirstPage = () => {
+    const { index } = this.state
+
+    return (index <= 1) ? 'first-page' : ''
+  }
+
   render() {
     const { images, fullScreen, fullScreenImage, galleryDisabled, fadeOut } = this.state
+    const firstPage = this.checkIfFirstPage()
+    const lastPage = this.checkIfLastPage()
 
     return(
       <section className='gallery-wrapper'>
@@ -113,8 +129,8 @@ export default class Gallery extends React.Component {
         </div> 
 
         <div className={`prev-next-area ${galleryDisabled}`}>
-          <button className='gallery-prev' onClick={() => this.handlePrevious()}>{'<'}</button>
-          <button className='gallery-next' onClick={() => this.handleNext()}>{'>'}</button>
+          <button className={`gallery-prev ${firstPage}`} onClick={() => this.handlePrevious()}>{'<'}</button>
+          <button className={`gallery-next ${lastPage}`} onClick={() => this.handleNext()}>{'>'}</button>
         </div> 
         
       </section>
