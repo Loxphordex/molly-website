@@ -1,6 +1,5 @@
 import React from 'react'
 import galleryImages from '../../images/gallery-images'
-import axios from 'axios'
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import './Gallery.css'
 
