@@ -10,6 +10,7 @@ export default class Gallery extends React.Component {
     fullScreen: false,
     fullScreenImage: null,
     galleryDisabled: '',
+    fadeOut: '',
   }
 
   componentDidMount() {
@@ -60,12 +61,20 @@ export default class Gallery extends React.Component {
     })
   }
 
-  handleDisableFullScreen = () => {
-    this.setState({
-      fullScreen: false,
-      fullScreenImage: null,
+  handleDisableFullScreen = async() => {
+    await this.setState({ 
+      fadeOut: 'fadeOut',
       galleryDisabled: '',
     })
+
+    setTimeout(() => {
+      this.setState({
+        fullScreen: false,
+        fullScreenImage: null,
+        galleryDisabled: '',
+        fadeOut: '',
+      })
+    }, 500)
   }
 
   handleNext = async() => {
@@ -85,13 +94,13 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const { images, fullScreen, fullScreenImage, galleryDisabled } = this.state
+    const { images, fullScreen, fullScreenImage, galleryDisabled, fadeOut } = this.state
 
     return(
       <section className='gallery-wrapper'>
 
         { !!fullScreen && 
-        <div className='fullscreen-background' onClick={() => this.handleDisableFullScreen()}>
+        <div className={`fullscreen-background ${fadeOut}`} onClick={() => this.handleDisableFullScreen()}>
           <CloudinaryContext cloudName='dghqlm5xb'>
             <Image publicId={fullScreenImage} />
           </CloudinaryContext>
