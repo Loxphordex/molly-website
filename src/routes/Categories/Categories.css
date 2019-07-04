@@ -1,0 +1,29 @@
+.categories-area {
+  max-width: 340px;
+  display: inline-block;
+  margin: auto;
+  text-align: left;
+}
+
+.category {
+  display: inline-block;
+  background-color: ghostwhite;
+  border: 1px solid whitesmoke;
+
+  width: 100px;
+  min-height: 60px;
+  padding-top: 40px;
+
+  margin: 1.5%;
+}
+
+.category a {
+  text-decoration: none;
+  background-color: ghostwhite;
+  color: black;
+}
+
+.category a:visited {
+  background-color: ghostwhite;
+  color: black;
+}
