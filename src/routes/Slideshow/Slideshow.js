@@ -59,7 +59,7 @@ export default class Slideshow extends React.Component {
             { images.map(image => {
               i++
               return(
-              <div className={`slide-image slide-image-${currentImage.id} ${index === i && 'current-slideshow'}`}>
+              <div key={i} className={`slide-image slide-image-${currentImage.id} ${index === i && 'current-slideshow'}`}>
                 <Image publicId={images[i].url} type='fetch'>
                   <Transformation quality='60' width='900' />
                 </Image>
