@@ -25,11 +25,17 @@ export default class Gallery extends React.Component {
     // and the new value minus 12, so we'll have a range of 1 to 12
 
     const { index } = this.state
+    const category = this.props.match.params.category
+
+    if(!category) {
+      // Make sure to redirect to the 404 error page
+      console.log('That does not exist')
+      return
+    }
 
     const imagesDisplayed = index * 12;
-    const images = galleryImages.slice(imagesDisplayed - 12, imagesDisplayed)
-    console.log('iMAGE LENGTH: ', images.length )
-    
+    const images = galleryImages[category].slice(imagesDisplayed - 12, imagesDisplayed)
+
     this.setState({ images })
   }
 
@@ -46,7 +52,7 @@ export default class Gallery extends React.Component {
             url={image.url}
             onClick={(event) => this.handleFullScreen(event.target.src)}>
             <Image publicId={image.url} type='fetch'>
-              <Transformation quality="61" width="808" crop="scale" />
+              <Transformation quality="60" width="400" crop="scale" />
             </Image>
           </div>
         </section>
@@ -55,7 +61,6 @@ export default class Gallery extends React.Component {
   }
 
   handleFullScreen = (url) => {
-    console.log('URL: ', url)
     this.setState({ 
       fullScreen: true,
       fullScreenImage: url,

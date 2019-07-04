@@ -12,7 +12,7 @@ export default class Header extends React.Component {
             <a href='https://www.etsy.com/shop/GolgiGoods' 
             target='_blank' rel='noopener noreferrer'>Shop</a>
           </li>
-          <li><Link to='/gallery'>Gallery</Link></li>
+          <li><Link to='/categories'>Gallery</Link></li>
           <li><Link to='/about'>About</Link></li>
           <li><Link to='/contact'>Contact</Link></li>
         </ul>
