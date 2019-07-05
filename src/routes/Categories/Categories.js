@@ -10,7 +10,7 @@ export default class Categories extends React.Component {
       <section className='categories-wrapper'>
         <div className='categories-area'>
           <div className='category c-demo'><Link to='/gallery/demo'>Demo</Link></div>
-          <div className='category c-graphite'><Link to='/gallery/graphite'>Graphite</Link></div>
+          <div className='category c-pencil'><Link to='/gallery/pencil'>Pencil</Link></div>
           <div className='category c-sculpture'><Link to='/gallery/sculpture'>Sculpture</Link></div>
           <div className='category c-pixel'><Link to='/gallery/pixel'>Pixel</Link></div>
 

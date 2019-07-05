@@ -182,7 +182,9 @@ export default class Gallery extends React.Component {
 
           <i className='fa fa-info-circle' onClick={() => this.handleShowMoreInfo()}></i>
 
-          { !!moreInfo && <ImageInfo />}
+          { !!moreInfo && <ImageInfo
+            image={fullScreenImage}
+          />}
 
 
           <div className='fullscreen-background'

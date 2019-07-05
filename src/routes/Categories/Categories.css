@@ -8,22 +8,49 @@
 .category {
   display: inline-block;
   background-color: ghostwhite;
-  border: 1px solid whitesmoke;
+  border: 1px solid rgb(97, 97, 97);
 
   width: 100px;
-  min-height: 60px;
-  padding-top: 40px;
 
   margin: 1.5%;
+}
+
+.category:hover {
+  cursor: pointer;
 }
 
 .category a {
   text-decoration: none;
   background-color: ghostwhite;
   color: black;
+
+  display: inline-block;
+  width: 100%;
+  min-height: 60px;
+  padding-top: 40px;
 }
 
 .category a:visited {
   background-color: ghostwhite;
   color: black;
+}
+
+/* Custom styles */
+
+
+/* Desktop */
+@media only screen and (min-width: 760px) {
+  .categories-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .categories-area {
+    max-width: 440px;
+  }
+  .category {
+    width: 200px;
+    min-height: 90px;
+    padding-top: 78px;
+  }
 }

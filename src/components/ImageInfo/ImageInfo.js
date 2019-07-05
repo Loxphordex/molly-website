@@ -3,9 +3,10 @@ import './ImageInfo.css'
 
 export default class ImageInfo extends React.Component {
   render() {
+    const { image } = this.props
     return(
       <section className='image-info-wrapper'>
-        <div>HI HI HI</div>
+        <h2>{image.name}</h2>
       </section>
     )
   }
