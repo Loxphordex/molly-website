@@ -11,6 +11,7 @@ export default class Gallery extends React.Component {
     images: null,
     fullScreen: false,
     fullScreenImage: null,
+    fullScreenImageUrl: '',
     moreInfo: true,
     galleryDisabled: '',
     fadeOut: '',
@@ -55,18 +56,19 @@ export default class Gallery extends React.Component {
     // located in this.props.match.params.category
 
     const { images } = this.state
+    let i = -1;
 
     return images.map(image => {
+      i++
       return (
         <section 
           className={`gallery-image ${image.name}`}
           key={image.name}>
-
           <div 
             className='gallery-image-wrapper'
             url={image.url}
-            onClick={(event) => this.handleFullScreen(event.target.src)}>
-            <Image publicId={image.url} type='fetch'>
+            onClick={(event) => this.handleFullScreen(event)}>
+            <Image publicId={image.url} type='fetch' name={i}>
               <Transformation quality="60" width="850" crop="scale" />
             </Image>
           </div>
@@ -76,15 +78,20 @@ export default class Gallery extends React.Component {
     })
   }
 
-  handleFullScreen = (url) => {
+  handleFullScreen = (event) => {
     // The gallery is disabled during fullscreen mode
     // in order to prevent scrolling 
     // (actually its visibility is set to hidden, w/e you get it)
 
+    const { images } = this.state
+    const i = event.target.name
+
     this.setState({ 
       fullScreen: true,
-      fullScreenImage: url,
+      fullScreenImage: images[i],
+      fullScreenImageUrl: event.target.src,
       galleryDisabled: 'gallery-disabled',
+      moreInfo: false,
     })
   }
 
@@ -104,6 +111,7 @@ export default class Gallery extends React.Component {
       this.setState({
         fullScreen: false,
         fullScreenImage: null,
+        fullScreenImageUrl: '',
         galleryDisabled: '',
         fadeOut: '',
       })
@@ -160,8 +168,9 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const { images, fullScreen, fullScreenImage, 
+    const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo } = this.state
+      
     const firstPage = this.checkIfFirstPage()
     const lastPage = this.checkIfLastPage()
 
@@ -169,14 +178,18 @@ export default class Gallery extends React.Component {
       <section className='gallery-wrapper'>
 
         { !!fullScreen && 
-        <div className='fullscreen-wrapper'>
+        <div className={`fullscreen-wrapper ${fadeOut}`}>
+
           <i className='fa fa-info-circle' onClick={() => this.handleShowMoreInfo()}></i>
+
           { !!moreInfo && <ImageInfo />}
-          <div className={`fullscreen-background ${fadeOut}`} 
+
+
+          <div className='fullscreen-background'
             onClick={() => this.handleDisableFullScreen()}>
 
             <CloudinaryContext cloudName='dghqlm5xb'>
-              <Image publicId={fullScreenImage} />
+              <Image publicId={fullScreenImageUrl} />
             </CloudinaryContext>
 
           </div> 

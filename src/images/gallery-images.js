@@ -26,7 +26,7 @@ const galleryImages =  {
 
   graphite: [
     // page 1
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28115499110_2a7cf572ae_o_ljznxz.jpg', name: 'flow' },
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28115499110_2a7cf572ae_o_ljznxz.jpg', name: 'flow', year: '2017' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859420/Molly%20Art/29148719803_354f11f8f7_o_ebqnkj.jpg', name: 'Morcous' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859440/Molly%20Art/29707078465_da0cb454a9_o_z4vcbv.jpg', name: 'Head' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859508/Molly%20Art/31712896597_400373ff69_o_iynou3.jpg', name: 'Levels' },
