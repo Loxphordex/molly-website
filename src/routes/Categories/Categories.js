@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import './Categories.css'
 
 export default class Categories extends React.Component {
+
+  // Pencil, Pen and Ink, Digital, Sculpture, Collections
   render() {
     return(
       <section className='categories-wrapper'>

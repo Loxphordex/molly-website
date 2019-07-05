@@ -23,6 +23,18 @@
   cursor: pointer;
 }
 
+.fa-info-circle {
+  color: white;
+  background-color: transparent;
+  float: left;
+  padding: 4%;
+  font-size: 24px;
+  z-index: 2000;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 .gallery-image img {
   max-width: 100px;
   min-width: 100px;
