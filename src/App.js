@@ -7,6 +7,7 @@ import Gallery from './routes/Gallery/Gallery'
 import Contact from './routes/Contact/Contact'
 
 function App() {
+  // testing
   return (
     <div className="App">
       <Route path='/'><Header /></Route>
