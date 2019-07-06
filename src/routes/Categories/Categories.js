@@ -9,10 +9,10 @@ export default class Categories extends React.Component {
     return(
       <section className='categories-wrapper'>
         <div className='categories-area'>
-          <div className='category c-demo'><Link to='/gallery/demo'>Demo</Link></div>
           <div className='category c-pencil'><Link to='/gallery/pencil'>Pencil</Link></div>
+          <div className='category c-pendandink'><Link to='/gallery/penandink'>{'Pen & Ink'}</Link></div>
           <div className='category c-sculpture'><Link to='/gallery/sculpture'>Sculpture</Link></div>
-          <div className='category c-pixel'><Link to='/gallery/pixel'>Pixel</Link></div>
+          <div className='category c-digital'><Link to='/gallery/digital'>Digital</Link></div>
 
         </div>
       </section>
