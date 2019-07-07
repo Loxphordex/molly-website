@@ -13,6 +13,8 @@ export default class Gallery extends React.Component {
     fullScreenImage: null,
     fullScreenImageUrl: '',
     moreInfo: true,
+    moreInfoFadeOut: '',
+    moreInfoDisableClose: '',
     galleryDisabled: '',
     fadeOut: '',
   }
@@ -162,14 +164,34 @@ export default class Gallery extends React.Component {
     return (index <= 1) ? 'first-page' : ''
   }
 
-  handleShowMoreInfo = () => {
+  handleShowMoreInfo = async() => {
     const { moreInfo } = this.state
-    this.setState({ moreInfo: !moreInfo })
+
+    if(!moreInfo) {
+      this.setState({ 
+        moreInfo: !moreInfo,
+        moreInfoDisableClose: 'disable-close',
+      })
+      return
+    }
+
+    else if(moreInfo) {
+      await this.setState({ moreInfoFadeOut: 'moreInfoFadeOut' })
+
+      setTimeout(() => {
+        this.setState({
+          moreInfoFadeOut: '',
+          moreInfo: !moreInfo,
+          moreInfoDisableClose: '',
+        })
+      }, 180)
+    }
   }
 
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
-      galleryDisabled, fadeOut, moreInfo } = this.state
+      galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
+      moreInfoDisableClose } = this.state
       
     const firstPage = this.checkIfFirstPage()
     const lastPage = this.checkIfLastPage()
@@ -184,10 +206,12 @@ export default class Gallery extends React.Component {
 
           { !!moreInfo && <ImageInfo
             image={fullScreenImage}
+            handleShowMoreInfo={this.handleShowMoreInfo}
+            moreInfoFadeOut={moreInfoFadeOut}
           />}
 
 
-          <div className='fullscreen-background'
+          <div className={'fullscreen-background ' + moreInfoDisableClose}
             onClick={() => this.handleDisableFullScreen()}>
 
             <CloudinaryContext cloudName='dghqlm5xb'>
