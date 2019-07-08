@@ -126,7 +126,6 @@
   overflow: hidden;
   visibility: hidden;
   transition: all 0.5s;
-  background-color: rgb(25, 25, 27);
 }
 
 .disable-close {
