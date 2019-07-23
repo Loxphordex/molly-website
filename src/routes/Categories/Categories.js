@@ -12,12 +12,12 @@ export default class Categories extends React.Component {
       <section className='categories-wrapper'>
         <div className='categories-area'>
 
-          <CloudinaryContext cloudName='dghqlm5xb'>
+          <CloudinaryContext cloudName='dghqlm5xb' className='categories-cloud-area'>
             <div className='category c-pencil'>
               <Image publicId={images.pencil} type='fetch' name='pencil'>
                 <Transformation quality="60" width="300" crop="scale" />
               </Image>
-              <Link to='/gallery/pencil'>Pencil</Link>
+              <Link to='/gallery/pencil'>PENCIL</Link>
             </div>
 
 
@@ -25,7 +25,7 @@ export default class Categories extends React.Component {
               <Image publicId={images.penandink} type='fetch' name='penandink'>
                 <Transformation quality="60" width="300" crop="scale" />
               </Image>
-              <Link to='/gallery/penandink'>{'Pen & Ink'}</Link>
+              <Link to='/gallery/penandink'>{'PEN & INK'}</Link>
             </div>
 
 
@@ -33,7 +33,7 @@ export default class Categories extends React.Component {
               <Image publicId={images.sculpture} type='fetch' name='sculpture'>
                 <Transformation quality="60" width="300" crop="scale" />
               </Image>
-              <Link to='/gallery/sculpture'>Sculpture</Link>
+              <Link to='/gallery/sculpture'>SCULPTURE</Link>
             </div>
 
 
@@ -41,7 +41,7 @@ export default class Categories extends React.Component {
               <Image publicId={images.digital} type='fetch' name='digital'>
                 <Transformation quality="60" width="300" crop="scale" />
               </Image>
-              <Link to='/gallery/digital'>Digital</Link>
+              <Link to='/gallery/digital'>DIGITAL</Link>
             </div>
           </CloudinaryContext>
 

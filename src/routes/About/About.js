@@ -10,11 +10,11 @@ export default class About extends React.Component {
         <div className='about-img-area'>
           <CloudinaryContext cloudName='dghqlm5xb'>
             <Image publicId={portraitUrl} type='fetch' name='portrait'>
-              <Transformation quality="50" width="260" crop="scale" />
+              <Transformation quality="80" width="260" crop="scale" />
             </Image>
           </CloudinaryContext>
         </div>
-        
+
       </section>
     )
   }
