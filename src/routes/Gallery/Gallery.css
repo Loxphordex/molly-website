@@ -1,5 +1,10 @@
 .gallery-wrapper {
   display: block;
+  -webkit-animation: fadein 1s;
+     -moz-animation: fadein 1s;
+      -ms-animation: fadein 1s;
+       -o-animation: fadein 1s;
+          animation: fadein 1s;
 }
 
 .image-area {
@@ -21,6 +26,18 @@
   max-width: 33%;
   margin: 1.5%;
   cursor: pointer;
+}
+
+.fa-info-circle {
+  color: rgba(148, 148, 148, 0.9);
+  background-color: transparent;
+  float: left;
+  padding: 4%;
+  font-size: 24px;
+  z-index: 2000;
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
 .gallery-image img {
@@ -109,6 +126,10 @@
   overflow: hidden;
   visibility: hidden;
   transition: all 0.5s;
+}
+
+.disable-close {
+  pointer-events: none;
 }
 
 .fadeOut {

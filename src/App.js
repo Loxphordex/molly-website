@@ -4,6 +4,7 @@ import Header from './components/Header/Header'
 import Slideshow from './routes/Slideshow/Slideshow'
 import Categories from './routes/Categories/Categories'
 import Gallery from './routes/Gallery/Gallery'
+import About from './routes/About/About'
 import Contact from './routes/Contact/Contact'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route exact path='/' component={Slideshow} />
       <Route path='/categories' component={Categories} />
       <Route path='/gallery/:category' component={Gallery} />
+      <Route path='/about' component={About} />
       <Route path='/contact' component={Contact} />
     </div>
   );
