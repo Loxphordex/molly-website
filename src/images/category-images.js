@@ -1,6 +1,7 @@
-export default {
-  pencil: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859629/Molly%20Art/44170270625_0c90e46d60_o_umupah.jpg',
-  penandink: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859690/Molly%20Art/47116769691_fdcbd812fc_o_ymjetd.jpg',
-  sculpture: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28114670060_5d4594d3db_o_ak5an9.jpg',
-  digital: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859504/Molly%20Art/31283468553_9c2b1d32bf_o_nnrfhr.jpg',
-}
+export default [
+  {name: 'pencil', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859644/Molly%20Art/43905708954_7a0ebf0e28_o_1_qikylg.jpg'},
+  {name: 'penandink', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859690/Molly%20Art/47116769691_fdcbd812fc_o_ymjetd.jpg'},
+  {name: 'sculpture', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28364444706_56b7972c88_o_zmlbko.jpg'},
+  {name: 'digital', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859504/Molly%20Art/31283468553_9c2b1d32bf_o_nnrfhr.jpg'},
+  {name: 'fashion', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859495/Molly%20Art/29746557945_e3d6314ff0_o_iievu0.jpg'},
+]
