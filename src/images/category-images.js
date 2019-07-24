@@ -4,4 +4,5 @@ export default [
   {name: 'sculpture', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28364444706_56b7972c88_o_zmlbko.jpg'},
   {name: 'digital', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859504/Molly%20Art/31283468553_9c2b1d32bf_o_nnrfhr.jpg'},
   {name: 'fashion', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859495/Molly%20Art/29746557945_e3d6314ff0_o_iievu0.jpg'},
+  {name: 'alt. mediums', url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859605/Molly%20Art/43059167424_2d813f8d0b_o_ckmaul.jpg'}
 ]

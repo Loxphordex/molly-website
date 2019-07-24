@@ -47,24 +47,18 @@ const galleryImages =  {
     // page 1
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28397966725_a4fb06d3a5_o_esulay.jpg', name: 'Usula' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859639/Molly%20Art/44253714295_8b9508d795_o_syfn17.jpg', name: 'pleasure in small things' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859606/Molly%20Art/43775503831_9436148721_o_v6qv0k.jpg', name: 'rocks1' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859605/Molly%20Art/43059167424_2d813f8d0b_o_ckmaul.jpg', name: 'rocks2' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859606/Molly%20Art/43775503831_9436148721_o_v6qv0k.jpg', name: 'rocks3' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859605/Molly%20Art/43059167424_2d813f8d0b_o_ckmaul.jpg', name: 'rocks4' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859576/Molly%20Art/33654014988_a8d8141509_o_qjs2ch.jpg', name: 'tuft' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859570/Molly%20Art/33654014178_448828a846_o_za76xj.jpg', name: 'another tuft' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859527/Molly%20Art/32588275247_7f7cde74f3_o_b1if6y.jpg', name: 'tuft3' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859495/Molly%20Art/29746557945_e3d6314ff0_o_iievu0.jpg', name: 'necklace' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859420/Molly%20Art/29711285606_917ce2c9b0_o_ujqpd5.jpg', name: 'green ncklace' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28364444706_56b7972c88_o_zmlbko.jpg', name: 'sad frog' },
-
-    // page 2
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28398395945_07b15f018f_o_oqjed5.jpg', name: 'Pillow' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28364740676_a61a1a8f88_o_ndndxq.jpg', name: 'Beetle' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28292983892_84cab416de_o_zxivv3.jpg', name: 'celry' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28292489212_1f2aa52b5f_o_fxmwvy.jpg', name: 'bod' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28115378510_bae968a87d_o_aexz9u.jpg', name: 'Big Pods' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/27781409523_05d8d358bb_o_qzxpr7.jpg', name: 'Green Pod' },
+
+    // page 2
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28115131280_9282f60c63_o_dmybqu.jpg', name: 'Merma' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/28115130610_401a066083_o_ganqud.jpg', name: 'Sloog' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859393/Molly%20Art/27782413833_d7c8bc7572_o_j7rcrd.jpg', name: 'Camera' },
@@ -94,6 +88,18 @@ const galleryImages =  {
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859451/Molly%20Art/24699904278_629fa97a0b_o_hzrozj.jpg', name: 'Comic' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859395/Molly%20Art/28839018127_047c717f0d_o_jdly44.jpg', name: 'Color Page 1' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28839017487_6aa9a5f25f_o_illmvd.jpg', name: 'Color Page 2' },
+  ],
+
+  fashion: [
+    // page 1
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859495/Molly%20Art/29746557945_e3d6314ff0_o_iievu0.jpg', name: 'hi' },
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859420/Molly%20Art/29711285606_917ce2c9b0_o_ujqpd5.jpg', name: 'green' },
+  ],
+
+  'alt. mediums': [
+    // page 1
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859606/Molly%20Art/43775503831_9436148721_o_v6qv0k.jpg', name: 'rocks 1' },
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859605/Molly%20Art/43059167424_2d813f8d0b_o_ckmaul.jpg', name: 'rocks 2' },
   ]
 };
 
