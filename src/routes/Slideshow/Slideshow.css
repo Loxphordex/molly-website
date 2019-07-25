@@ -1,0 +1,36 @@
+.slideshow-wrapper {
+  -webkit-animation: fadein 2.5s;
+     -moz-animation: fadein 2.5s;
+      -ms-animation: fadein 2.5s;
+       -o-animation: fadein 2.5s;
+          animation: fadein 2.5s;
+}
+
+.slide-image-area {
+  transition: all 0.3s;
+  /* transition-delay: 0.2s; */
+  margin-top: 3.5%;
+}
+
+.slide-image-area img {
+  max-width: 98%;
+  max-height: 400px;
+}
+
+.slide-image {
+  display: none;
+}
+
+.current-slideshow {
+  display: initial;
+}
+
+.transitioning {
+  opacity: 0;
+}
+
+@media only screen and (min-width: 760px) {
+  .slide-image-area img {
+    max-height: 80vh;
+  }
+}

@@ -1,0 +1,41 @@
+.main-nav h1 a {
+  text-decoration: none;
+  color: black;
+}
+
+.main-nav ul {
+  padding: 0;
+}
+
+.main-nav ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 5%;
+  cursor: pointer;
+}
+
+.main-nav ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 760px) {
+  .main-nav {
+    min-height: 56px;
+  }
+  .main-nav h1 {
+    float: left;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  .main-nav ul {
+    float: right;
+    width: 320px;
+    margin-top: 28px;
+  }
+  .main-nav ul li {
+    margin: 0 4%;
+  }
+}
