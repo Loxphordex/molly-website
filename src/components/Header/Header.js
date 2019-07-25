@@ -10,11 +10,11 @@ export default class Header extends React.Component {
         <ul>
           <li>
             <a href='https://www.etsy.com/shop/GolgiGoods' 
-            target='_blank' rel='noopener noreferrer'>Shop</a>
+            target='_blank' rel='noopener noreferrer'>SHOP</a>
           </li>
-          <li><Link to='/categories'>Gallery</Link></li>
-          <li><Link to='/about'>About</Link></li>
-          <li><Link to='/contact'>Contact</Link></li>
+          <li><Link to='/categories'>GALLERY</Link></li>
+          <li><Link to='/about'>ABOUT</Link></li>
+          <li><Link to='/contact'>CONTACT</Link></li>
         </ul>
       </nav>
     )
