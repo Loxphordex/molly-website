@@ -39,7 +39,6 @@ const galleryImages =  {
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859597/Molly%20Art/34172729492_3d06f4768f_o_gsnxtg.jpg', name: 'Sad' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859576/Molly%20Art/33984682700_6c339bba66_o_vvil9h.jpg', name: 'Jus Sleepin' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859452/Molly%20Art/29661540622_f12673c916_o_y4d32k.jpg', name: 'Peng Dream' },
-    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859477/Molly%20Art/29736984981_39f5f80031_o_ilh59x.jpg', name: 'Paper Affair' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859394/Molly%20Art/28398311405_44befe467b_o_yyns21.jpg', name: 'Micro Purps' },
   ],
 
@@ -100,6 +99,7 @@ const galleryImages =  {
     // page 1
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859606/Molly%20Art/43775503831_9436148721_o_v6qv0k.jpg', name: 'rocks 1' },
     { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859605/Molly%20Art/43059167424_2d813f8d0b_o_ckmaul.jpg', name: 'rocks 2' },
+    { url: 'https://res.cloudinary.com/dghqlm5xb/image/upload/v1561859477/Molly%20Art/29736984981_39f5f80031_o_ilh59x.jpg', name: 'Paper Affair' },
   ]
 };
 

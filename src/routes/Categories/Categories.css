@@ -73,14 +73,30 @@
     justify-content: center;
   }
   .categories-area {
-    max-width: 440px;
+    max-width: initial;
+  }
+  .categories-cloud-area {
+    max-width: 910px;
   }
   .category {
     width: 200px;
+    margin-bottom: 30px;
   }
-  /* .category a {
-    min-height: 100px;
-    padding-top: 82px;
-    font-size: 18px;
-  } */
+  .category img {
+    max-width: 200px;
+    min-width: 200px;
+    max-height: 200px;
+    min-height: 200px;
+  }
+  .category a {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -17px;
+    min-height: 0;
+
+    padding-top: 197px;
+    
+    font-size: 13px;
+  }
 }

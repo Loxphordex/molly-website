@@ -32,10 +32,10 @@
   }
   .main-nav ul {
     float: right;
-    width: 270px;
+    width: 320px;
     margin-top: 28px;
   }
   .main-nav ul li {
-    margin: 0 2%;
+    margin: 0 4%;
   }
 }
