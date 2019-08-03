@@ -4,6 +4,7 @@ import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import ImageInfo from '../../components/ImageInfo/ImageInfo'
 import './Gallery.css'
 import './GalleryFullScreen.css'
+import config from '../../config'
 
 export default class Gallery extends React.Component {
   state = {
@@ -214,7 +215,7 @@ export default class Gallery extends React.Component {
           <div className={'fullscreen-background ' + moreInfoDisableClose}
             onClick={() => this.handleDisableFullScreen()}>
 
-            <CloudinaryContext cloudName='dghqlm5xb'>
+            <CloudinaryContext cloudName={config.CLOUD_KEY}>
               <Image publicId={fullScreenImageUrl} />
             </CloudinaryContext>
 
@@ -223,7 +224,7 @@ export default class Gallery extends React.Component {
         }
 
         <div className={`image-area ${galleryDisabled}`}>
-          <CloudinaryContext cloudName='dghqlm5xb'>
+          <CloudinaryContext cloudName={config.CLOUD_KEY}>
             { !!images && this.createImageElements() }
           </CloudinaryContext>
         </div> 
