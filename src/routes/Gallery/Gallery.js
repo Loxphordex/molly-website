@@ -4,6 +4,9 @@ import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import ImageInfo from '../../components/ImageInfo/ImageInfo'
 import './Gallery.css'
 import './GalleryFullScreen.css'
+import './ImageEditor.css'
+import config from '../../config'
+import ImageEditor from './ImageEditor'
 
 export default class Gallery extends React.Component {
   state = {
@@ -58,6 +61,7 @@ export default class Gallery extends React.Component {
     // located in this.props.match.params.category
 
     const { images } = this.state
+    const mollyToken = window.localStorage.getItem('mollylandToken')
     let i = -1;
 
     return images.map(image => {
@@ -66,6 +70,14 @@ export default class Gallery extends React.Component {
         <section 
           className={`gallery-image ${image.name}`}
           key={image.name}>
+
+          {mollyToken && 
+            <section className='auth-options'>
+              <button className='auth-rename'>RENAME</button>
+              <button className='auth-delete'>DELETE</button>
+            </section>
+          }
+
           <div 
             className='gallery-image-wrapper'
             url={image.url}
@@ -188,10 +200,16 @@ export default class Gallery extends React.Component {
     }
   }
 
+  showAdminOptions = () => {
+    
+  }
+
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
       moreInfoDisableClose } = this.state
+    
+    const mollyToken = window.localStorage.getItem('mollylandToken')
       
     const firstPage = this.checkIfFirstPage()
     const lastPage = this.checkIfLastPage()
@@ -214,7 +232,7 @@ export default class Gallery extends React.Component {
           <div className={'fullscreen-background ' + moreInfoDisableClose}
             onClick={() => this.handleDisableFullScreen()}>
 
-            <CloudinaryContext cloudName='dghqlm5xb'>
+            <CloudinaryContext cloudName={config.CLOUD_KEY}>
               <Image publicId={fullScreenImageUrl} />
             </CloudinaryContext>
 
@@ -223,7 +241,7 @@ export default class Gallery extends React.Component {
         }
 
         <div className={`image-area ${galleryDisabled}`}>
-          <CloudinaryContext cloudName='dghqlm5xb'>
+          <CloudinaryContext cloudName={config.CLOUD_KEY}>
             { !!images && this.createImageElements() }
           </CloudinaryContext>
         </div> 
