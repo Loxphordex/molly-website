@@ -7,6 +7,7 @@ import './GalleryFullScreen.css'
 import './ImageEditor.css'
 import config from '../../config'
 import ImageEditor from './ImageEditor'
+import ApiServices from '../../services/api-services'
 
 export default class Gallery extends React.Component {
   state = {
