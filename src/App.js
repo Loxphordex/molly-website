@@ -7,6 +7,7 @@ import Gallery from './routes/Gallery/Gallery'
 import About from './routes/About/About'
 import Contact from './routes/Contact/Contact'
 import Admin from './routes/Admin/Admin'
+import LogoutFooter from './routes/Admin/LogoutFooter'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/about' component={About} />
       <Route path='/contact' component={Contact} />
       <Route path='/login' render={({ history }) => <Admin history={history} />} />
+      <Route path='/' render={({ history }) => <LogoutFooter history={history} />} />
     </div>
   );
 }
