@@ -2,7 +2,7 @@
   display: block;
   position: absolute;
   background: none;
-  max-width: 27%;
+  width: 100px;
   z-index: 1000;
 }
 
@@ -12,6 +12,7 @@
   font-weight: bold;
   width: 100%;
   min-height: 50px;
+  cursor: pointer;
 }
 
 .auth-rename {
@@ -22,7 +23,29 @@
   border-bottom: 1px solid rgb(255, 255, 255);
 }
 
+.auth-rename p {
+  background: none;
+  margin: 0;
+}
+
 .auth-delete {
   border: none;
   bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .auth-options {
+    display: none;
+    min-width: 180px;
+    max-width: initial;
+  }
+  .auth-options button {
+    min-height: 90px;
+  }
+  .auth-options button:hover {
+    background-color: rgba(34, 33, 33, 0.651);
+  }
+  .gallery-image:hover .auth-options {
+    display: block;
+  }
 }

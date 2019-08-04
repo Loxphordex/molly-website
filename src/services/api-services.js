@@ -25,6 +25,21 @@ const ApiServices = {
           : res.json()
       })
   },
+
+  changeImageName(id, name) {
+    return fetch(`${config.API_ENDPOINT}/api/images?id=${id}&name=${name}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${window.localStorage.getItem('mollylandToken')}`,
+      },
+    })
+    .then(res => {
+      return (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    })
+  },
 }
 
 export default ApiServices

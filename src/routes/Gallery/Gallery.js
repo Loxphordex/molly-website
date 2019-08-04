@@ -1,5 +1,4 @@
 import React from 'react'
-import galleryImages from '../../images/gallery-images'
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import ImageInfo from '../../components/ImageInfo/ImageInfo'
 import './Gallery.css'
@@ -12,6 +11,7 @@ import ApiServices from '../../services/api-services'
 export default class Gallery extends React.Component {
   state = {
     index: 1,
+    category: '',
     images: null,
     fullScreen: false,
     fullScreenImage: null,
@@ -21,13 +21,17 @@ export default class Gallery extends React.Component {
     moreInfoDisableClose: '',
     galleryDisabled: '',
     fadeOut: '',
+
+    renamingImage: false,
+    renamedImageId: null,
+    renamedImageName: '',
   }
 
   componentDidMount() {
     this.setDisplayedImages()
   }
 
-  setDisplayedImages = () => {
+  setDisplayedImages = async() => {
     // Each page diplays a maximium of 12 images
     // So we take the index and multiply it by 12 (1*12=12, 2*12=24, etc...)
     // We want the range of images to be between this new value (12)
@@ -51,9 +55,19 @@ export default class Gallery extends React.Component {
     // only have 6 images, the 6 images will be displayed without
     // any problems.
 
-    const images = galleryImages[category].slice(imagesDisplayed - 12, imagesDisplayed)
+    const allImages = await ApiServices.getImagesByCategory(category)
+    console.log(allImages.images)
 
-    this.setState({ images })
+    const images = allImages.images.slice(imagesDisplayed - 12, imagesDisplayed)
+
+    this.setState({ images, category })
+  }
+
+  renameImage = (event) => {
+    event.preventDefault()
+    const { id } = event.target
+
+    console.log(id)
   }
 
   createImageElements = () => {
@@ -74,7 +88,11 @@ export default class Gallery extends React.Component {
 
           {mollyToken && 
             <section className='auth-options'>
-              <button className='auth-rename'>RENAME</button>
+              <button className='auth-rename'
+                id={image.id}
+                onClick={(event) => this.renameImage(event)}>RENAME
+                <p id={image.id}>{`"${image.name}"`}</p>
+              </button>
               <button className='auth-delete'>DELETE</button>
             </section>
           }
