@@ -8,7 +8,7 @@
 }
 
 .rename-background {
-  position: absolute;
+  position: fixed;
   z-index: 2000;
   width: 100%;
   min-height: 100vh;
@@ -91,9 +91,22 @@
 
 @media only screen and (min-width: 768px) {
   .rename-form {
+    min-height: 30vh;
     width: 40%;
     min-width: 450px;
     max-width: 700px;
-    margin-top: 20%;
+    margin-top: 20vh;
+  }
+  .rename-form label {
+    margin: 5% auto;
+  }
+  .rename-form button,
+  #rename-input {
+    font-size: 16px;
+    min-height: 30px;
+  }
+
+  .rename-form button {
+    margin: 2% auto;
   }
 }
