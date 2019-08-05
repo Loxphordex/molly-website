@@ -5,8 +5,8 @@ import './Gallery.css'
 import './GalleryFullScreen.css'
 import './ImageEditor.css'
 import config from '../../config'
-import ImageEditor from './ImageEditor'
 import ApiServices from '../../services/api-services'
+import Rename from '../../components/Rename/Rename'
 
 export default class Gallery extends React.Component {
   state = {
@@ -25,6 +25,7 @@ export default class Gallery extends React.Component {
     renamingImage: false,
     renamedImageId: null,
     renamedImageName: '',
+    oldName: '',
   }
 
   componentDidMount() {
@@ -40,6 +41,8 @@ export default class Gallery extends React.Component {
 
     const { index } = this.state
     const category = this.props.match.params.category
+
+    console.log('setDisplayedImages ran')
 
     if(!category) {
       // Make sure to redirect to the 404 error page
@@ -63,12 +66,48 @@ export default class Gallery extends React.Component {
     this.setState({ images, category })
   }
 
-  renameImage = (event) => {
+  // RENAMING -----------------------
+  showRenameBox = (event) => {
     event.preventDefault()
-    const { id } = event.target
-
-    console.log(id)
+    const { id, name } = event.target
+    this.setState({ 
+      renamingImage: true,
+      renamedImageId: id,
+      oldName: name,
+    })
   }
+
+  hideRenameBox = (event) => {
+    event.preventDefault()
+    this.setState({ 
+      renamingImage: false,
+      renamedImageId: null,
+      renamedImageName: '',
+      oldName: '',
+    })
+  }
+
+  setNewName = (newName) => {
+    this.setState({
+      renamedImageName: newName,
+    })
+  }
+
+  handleSubmitRename = (event) => {
+    event.preventDefault()
+    const { renamedImageId, renamedImageName } = this.state
+
+    ApiServices.changeImageName(renamedImageId, renamedImageName)
+      .then(() => {
+        this.setState({
+          renamingImage: false,
+          renamedImageId: null,
+          renamedImageName: '',
+          oldName: '',
+        })
+      }).then(() => this.setDisplayedImages())
+  }
+  // -------------------------------
 
   createImageElements = () => {
     // Each image object in the state is used to create these elements
@@ -90,7 +129,8 @@ export default class Gallery extends React.Component {
             <section className='auth-options'>
               <button className='auth-rename'
                 id={image.id}
-                onClick={(event) => this.renameImage(event)}>RENAME
+                name={image.name}
+                onClick={(event) => this.showRenameBox(event)}>RENAME
                 <p id={image.id}>{`"${image.name}"`}</p>
               </button>
               <button className='auth-delete'>DELETE</button>
@@ -111,6 +151,7 @@ export default class Gallery extends React.Component {
     })
   }
 
+  // FULL SCREEN -------------------
   handleFullScreen = (event) => {
     // The gallery is disabled during fullscreen mode
     // in order to prevent scrolling 
@@ -151,6 +192,32 @@ export default class Gallery extends React.Component {
     }, 450)
   }
 
+  handleShowMoreInfo = async() => {
+    const { moreInfo } = this.state
+
+    if(!moreInfo) {
+      this.setState({ 
+        moreInfo: !moreInfo,
+        moreInfoDisableClose: 'disable-close',
+      })
+      return
+    }
+
+    else if(moreInfo) {
+      await this.setState({ moreInfoFadeOut: 'moreInfoFadeOut' })
+
+      setTimeout(() => {
+        this.setState({
+          moreInfoFadeOut: '',
+          moreInfo: !moreInfo,
+          moreInfoDisableClose: '',
+        })
+      }, 180)
+    }
+  }
+  // -------------------------------
+
+  // NEXT AND PREV -----------------
   handleNext = async() => {
     // Wow does this need to be so complicated?
     // Here I'm simply moving the index up by one,
@@ -194,47 +261,27 @@ export default class Gallery extends React.Component {
 
     return (index <= 1) ? 'first-page' : ''
   }
-
-  handleShowMoreInfo = async() => {
-    const { moreInfo } = this.state
-
-    if(!moreInfo) {
-      this.setState({ 
-        moreInfo: !moreInfo,
-        moreInfoDisableClose: 'disable-close',
-      })
-      return
-    }
-
-    else if(moreInfo) {
-      await this.setState({ moreInfoFadeOut: 'moreInfoFadeOut' })
-
-      setTimeout(() => {
-        this.setState({
-          moreInfoFadeOut: '',
-          moreInfo: !moreInfo,
-          moreInfoDisableClose: '',
-        })
-      }, 180)
-    }
-  }
-
-  showAdminOptions = () => {
-    
-  }
+  // -------------------------------
 
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
-      moreInfoDisableClose } = this.state
-    
-    const mollyToken = window.localStorage.getItem('mollylandToken')
+      moreInfoDisableClose, renamingImage, oldName } = this.state
       
     const firstPage = this.checkIfFirstPage()
     const lastPage = this.checkIfLastPage()
 
     return(
       <section className='gallery-wrapper'>
+
+        { !!renamingImage &&
+          <Rename
+            name={oldName} 
+            setNewName={this.setNewName}
+            hideRenameBox={this.hideRenameBox}
+            handleSubmitRename={this.handleSubmitRename}
+          />
+        }
 
         { !!fullScreen && 
         <div className={`fullscreen-wrapper ${fadeOut}`}>
