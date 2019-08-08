@@ -26,6 +26,22 @@ const ApiServices = {
       })
   },
 
+  addNewImage(newImage) {
+    return fetch(`${config.API_ENDPOINT}/api/images`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${window.localStorage.getItem('mollylandToken')}`
+      },
+      body: JSON.stringify(newImage),
+    })
+    .then(res => {
+      return (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    })
+  },
+
   changeImageName(id, name) {
     return fetch(`${config.API_ENDPOINT}/api/images?id=${id}&name=${name}`, {
       method: 'PATCH',
@@ -40,6 +56,21 @@ const ApiServices = {
         : res.json()
     })
   },
+
+  deleteImage(id) {
+    return fetch(`${config.API_ENDPOINT}/api/images?id=${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${window.localStorage.getItem('mollylandToken')}`,
+      },
+    })
+    .then(res => {
+      return (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    })
+  }
 }
 
 export default ApiServices

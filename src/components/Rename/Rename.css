@@ -91,7 +91,7 @@
 
 @media only screen and (min-width: 768px) {
   .rename-form {
-    min-height: 30vh;
+    min-height: 29vh;
     width: 40%;
     min-width: 450px;
     max-width: 700px;
@@ -105,8 +105,10 @@
     font-size: 16px;
     min-height: 30px;
   }
-
   .rename-form button {
-    margin: 2% auto;
+    margin: 1% auto;
+  }
+  .rename-form button:focus {
+    border: 3px solid rgb(235, 5, 5);
   }
 }

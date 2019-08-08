@@ -7,6 +7,8 @@ import './ImageEditor.css'
 import config from '../../config'
 import ApiServices from '../../services/api-services'
 import Rename from '../../components/Rename/Rename'
+import AdminAddImage from '../../components/AdminAddImage/AdminAddImage'
+import AddImageForm from '../../components/AddImageForm/AddImageForm'
 
 export default class Gallery extends React.Component {
   state = {
@@ -26,6 +28,8 @@ export default class Gallery extends React.Component {
     renamedImageId: null,
     renamedImageName: '',
     oldName: '',
+
+    addingImage: false,
   }
 
   componentDidMount() {
@@ -42,8 +46,6 @@ export default class Gallery extends React.Component {
     const { index } = this.state
     const category = this.props.match.params.category
 
-    console.log('setDisplayedImages ran')
-
     if(!category) {
       // Make sure to redirect to the 404 error page
       console.log('That does not exist')
@@ -59,7 +61,6 @@ export default class Gallery extends React.Component {
     // any problems.
 
     const allImages = await ApiServices.getImagesByCategory(category)
-    console.log(allImages.images)
 
     const images = allImages.images.slice(imagesDisplayed - 12, imagesDisplayed)
 
@@ -217,6 +218,38 @@ export default class Gallery extends React.Component {
   }
   // -------------------------------
 
+  // ADD IMAGE----------------------
+  showAddImageForm = () => {
+    this.setState({ addingImage: true })
+  }
+
+  hideAddImageForm = () => {
+    this.setState({ addingImage: false })
+  }
+
+  handleAddImage = (event) => {
+    event.preventDefault()
+    console.log(event.target.addurl.value)
+
+    const { category } = this.state
+    const url = event.target.addurl.value
+    const name = event.target.addname.value
+    const year = event.target.addyear.value
+
+    let newImage = { category, url, name }
+    console.log(newImage)
+
+    if (year) {
+      newImage.year = year
+    }
+
+    ApiServices.addNewImage(newImage)
+      .then(() => this.setState({ addingImage: false }))
+      .then(() => this.setDisplayedImages())
+      .catch(e => console.error(e))
+  }
+  //--------------------------------
+
   // NEXT AND PREV -----------------
   handleNext = async() => {
     // Wow does this need to be so complicated?
@@ -266,13 +299,21 @@ export default class Gallery extends React.Component {
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
-      moreInfoDisableClose, renamingImage, oldName } = this.state
+      moreInfoDisableClose, renamingImage, oldName, addingImage } = this.state
       
     const firstPage = this.checkIfFirstPage()
     const lastPage = this.checkIfLastPage()
+    const hasToken = window.localStorage.getItem('mollylandToken')
 
     return(
       <section className='gallery-wrapper'>
+
+        { !!addingImage &&  
+          <AddImageForm
+            hideAddImageForm={this.hideAddImageForm}
+            handleAddImage={this.handleAddImage}
+          />
+        }
 
         { !!renamingImage &&
           <Rename
@@ -309,6 +350,8 @@ export default class Gallery extends React.Component {
         <div className={`image-area ${galleryDisabled}`}>
           <CloudinaryContext cloudName={config.CLOUD_KEY}>
             { !!images && this.createImageElements() }
+            { !!hasToken && images && images.length < 12 && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+            { !!hasToken && images && images.length === 12 && !!lastPage && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
           </CloudinaryContext>
         </div> 
 
