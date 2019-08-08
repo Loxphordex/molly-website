@@ -45,6 +45,7 @@ export default class Gallery extends React.Component {
 
     const { index } = this.state
     const category = this.props.match.params.category
+    console.log(category)
 
     if(!category) {
       // Make sure to redirect to the 404 error page
@@ -249,6 +250,10 @@ export default class Gallery extends React.Component {
       .catch(e => console.error(e))
   }
   //--------------------------------
+
+  // DELETE IMAGE
+
+  //-----
 
   // NEXT AND PREV -----------------
   handleNext = async() => {
