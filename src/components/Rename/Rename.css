@@ -1,0 +1,114 @@
+.rename-area {
+  position: absolute;
+  width: 100%;
+  min-height: 100vh;
+  background: none;
+  overflow-y: hidden;
+  top: 0;
+}
+
+.rename-background {
+  position: fixed;
+  z-index: 2000;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(51, 51, 51, 0.534);
+  overflow-y: hidden;
+}
+
+.rename-form {
+  position: relative;
+  display: inline-block;
+  z-index: 3000;
+  margin-top: 35%;
+  width: 90%;
+  min-height: 50vh;
+  border-radius: 4px;
+}
+
+.rename-form label {
+  display: inline-block;
+  width: 100%;
+  margin: 10% auto;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#rename-input {
+  font-size: 22px;
+  width: 90%;
+  min-height: 50px;
+
+  color: rgb(66, 66, 66);
+  
+  background-color: white;
+  border: 2px solid rgb(225, 231, 231);
+  border-radius: 4px;
+  
+  margin: 3% 0;
+}
+
+#rename-input:focus {
+  border: 3px solid rgba(248, 79, 0, 0.295);
+  outline: none;
+  font-weight: 500;
+}
+
+.rename-form button {
+  box-sizing: border-box;
+  font-size: 22px;
+  font-weight: 500;
+  width: 91%;
+  min-height: 50px;
+  padding: 0;
+  
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  
+  margin: 3% 0;
+}
+
+.submit-rename {
+  background-color: white;
+  color: rgb(66, 66, 66);
+  border: 2px solid rgb(143, 143, 143);
+}
+
+.cancel-rename {
+  background-color: rgb(241, 107, 45);
+  color: white;
+  border: none;
+}
+
+.submit-rename:hover {
+  background-color: rgb(250, 249, 249);
+}
+
+.cancel-rename:hover {
+  background-color: rgb(230, 94, 31);
+}
+
+@media only screen and (min-width: 768px) {
+  .rename-form {
+    min-height: 29vh;
+    width: 40%;
+    min-width: 450px;
+    max-width: 700px;
+    margin-top: 20vh;
+  }
+  .rename-form label {
+    margin: 5% auto;
+  }
+  .rename-form button,
+  #rename-input {
+    font-size: 16px;
+    min-height: 30px;
+  }
+  .rename-form button {
+    margin: 1% auto;
+  }
+  .rename-form button:focus {
+    border: 3px solid rgb(235, 5, 5);
+  }
+}
