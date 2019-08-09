@@ -15,9 +15,15 @@ export default class DeleteImage extends React.Component {
           className='delete-background'
           onClick={() => hideDeleteConfirmation()}
         />
-        <p>For Real?</p>
-        <button onClick={() => handleDeleteImage()}>DELETE</button>
-        <button onClick={() => hideDeleteConfirmation()}>CANCEL</button>
+        <div className='delete-message'>
+          <p>For Real?</p>
+          <button 
+            className='delete-submit' 
+            onClick={() => handleDeleteImage()}>DELETE</button>
+          <button 
+            className='delete-cancel' 
+            onClick={() => hideDeleteConfirmation()}>CANCEL</button>
+        </div>
       </div>
     )
   }
