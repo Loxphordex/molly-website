@@ -32,6 +32,7 @@ export default class Gallery extends React.Component {
     renamedImageId: null,
     renamedImageName: '',
     oldName: '',
+    newYear: '',
 
     addingImage: false,
     deletingImage: false,
@@ -96,7 +97,7 @@ export default class Gallery extends React.Component {
                 <button className='auth-rename'
                   id={image.id}
                   name={image.name}
-                  onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
+                  onClick={(event) => this.showRenameBox(event)}>{`RENAME \n"${image.name}" \n ${image.year || ''}`}
                 </button>
                 <button 
                   className='auth-delete'
@@ -120,7 +121,7 @@ export default class Gallery extends React.Component {
       })
 
   }
-  
+
   // RENAMING -----------------------
   showRenameBox = (event) => {
     event.preventDefault()
@@ -148,17 +149,22 @@ export default class Gallery extends React.Component {
     })
   }
 
+  setNewYear = (newYear) => {
+    this.setState({ newYear })
+  }
+
   handleSubmitRename = (event) => {
     event.preventDefault()
-    const { renamedImageId, renamedImageName } = this.state
+    const { renamedImageId, renamedImageName, newYear } = this.state
 
-    ApiServices.changeImageName(renamedImageId, renamedImageName)
+    ApiServices.changeImageName(renamedImageId, renamedImageName, newYear)
       .then(() => {
         this.setState({
           renamingImage: false,
           renamedImageId: null,
           renamedImageName: '',
           oldName: '',
+          newYear: '',
         })
       }).then(() => this.setDisplayedImages())
   }
@@ -346,7 +352,7 @@ export default class Gallery extends React.Component {
 
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
-      galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
+      galleryDisabled, fadeOut, moreInfoFadeOut,
       moreInfoDisableClose, renamingImage, oldName, addingImage, deletingImage, lastPage } = this.state
       
     const firstPage = this.checkIfFirstPage()
@@ -373,6 +379,7 @@ export default class Gallery extends React.Component {
           <Rename
             name={oldName} 
             setNewName={this.setNewName}
+            setNewYear={this.setNewYear}
             hideRenameBox={this.hideRenameBox}
             handleSubmitRename={this.handleSubmitRename}
           />
@@ -381,13 +388,12 @@ export default class Gallery extends React.Component {
         { !!fullScreen && 
         <div className={`fullscreen-wrapper ${fadeOut}`}>
 
-          <i className='fa fa-info-circle' onClick={() => this.handleShowMoreInfo()}></i>
-
-          { !!moreInfo && <ImageInfo
+          <ImageInfo
             image={fullScreenImage}
             handleShowMoreInfo={this.handleShowMoreInfo}
+            handleDisableFullScreen={this.handleDisableFullScreen}
             moreInfoFadeOut={moreInfoFadeOut}
-          />}
+          />
 
 
           <div className={'fullscreen-background ' + moreInfoDisableClose}
