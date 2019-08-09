@@ -84,5 +84,6 @@ input:-webkit-autofill:focus {
   .admin-form button {
     font-size: 16px;
     min-height: 30px;
+    margin: 2% auto;
   }
 }
