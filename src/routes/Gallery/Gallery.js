@@ -9,6 +9,7 @@ import ApiServices from '../../services/api-services'
 import Rename from '../../components/Rename/Rename'
 import AdminAddImage from '../../components/AdminAddImage/AdminAddImage'
 import AddImageForm from '../../components/AddImageForm/AddImageForm'
+import DeleteImage from '../../components/DeleteImage/DeleteImage'
 
 export default class Gallery extends React.Component {
   state = {
@@ -33,6 +34,8 @@ export default class Gallery extends React.Component {
     oldName: '',
 
     addingImage: false,
+    deletingImage: false,
+    imageToDelete: '',
   }
 
   componentDidMount = async() => {
@@ -136,10 +139,13 @@ export default class Gallery extends React.Component {
               <button className='auth-rename'
                 id={image.id}
                 name={image.name}
-                onClick={(event) => this.showRenameBox(event)}>RENAME
-                <p id={image.id}>{`"${image.name}"`}</p>
+                onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
               </button>
-              <button className='auth-delete'>DELETE</button>
+              <button 
+                className='auth-delete'
+                id={image.id}
+                onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
+              </button>
             </section>
           }
 
@@ -254,7 +260,28 @@ export default class Gallery extends React.Component {
   //--------------------------------
 
   // DELETE IMAGE
+  showDeleteConfirmation = (event) => {
+    const id = event.target.id
+    this.setState({ 
+      deletingImage: true,
+      imageToDelete: id
+    })
+  }
 
+  hideDeleteConfirmation = () => {
+    this.setState({ deletingImage: false })
+  }
+
+  handleDeleteImage = () => {
+    const { imageToDelete } = this.state
+    let id = parseInt(imageToDelete, 10)
+    
+    ApiServices.deleteImage(id)
+      .then(() => this.setState({ deletingImage: false }))
+      .then(() => this.setState({ imageToDelete: '' }))
+      .then(() => this.setDisplayedImages())
+      .catch(e => console.error(e))
+  }
   //-----
 
   // NEXT AND PREV -----------------
@@ -319,7 +346,7 @@ export default class Gallery extends React.Component {
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
-      moreInfoDisableClose, renamingImage, oldName, addingImage, lastPage } = this.state
+      moreInfoDisableClose, renamingImage, oldName, addingImage, deletingImage, lastPage } = this.state
       
     const firstPage = this.checkIfFirstPage()
     const hasToken = window.localStorage.getItem('mollylandToken')
@@ -331,6 +358,13 @@ export default class Gallery extends React.Component {
           <AddImageForm
             hideAddImageForm={this.hideAddImageForm}
             handleAddImage={this.handleAddImage}
+          />
+        }
+
+        { !!deletingImage &&
+          <DeleteImage 
+            hideDeleteConfirmation={this.hideDeleteConfirmation}
+            handleDeleteImage={this.handleDeleteImage}
           />
         }
 
