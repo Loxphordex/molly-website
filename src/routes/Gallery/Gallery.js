@@ -317,7 +317,7 @@ export default class Gallery extends React.Component {
     // of the Prev and Next buttons
 
     const { index, images, allImages } = this.state
-    const i = index + 1
+    const i = index * 12
 
     if (!images) {
       return
@@ -326,7 +326,7 @@ export default class Gallery extends React.Component {
       this.setState({ lastPage: 'last-page' })
       return
     }
-    if (!allImages[i * 12]) {
+    if (!allImages[i + 1]) {
       this.setState({ lastPage: 'last-page' })
       return
     }
