@@ -91,7 +91,7 @@
 
 @media only screen and (min-width: 768px) {
   .rename-form {
-    min-height: 29vh;
+    min-height: 35vh;
     width: 40%;
     min-width: 450px;
     max-width: 700px;
@@ -99,11 +99,6 @@
   }
   .rename-form label {
     margin: 5% auto;
-  }
-  .rename-form button,
-  #rename-input {
-    font-size: 16px;
-    min-height: 30px;
   }
   .rename-form button {
     margin: 1% auto;
