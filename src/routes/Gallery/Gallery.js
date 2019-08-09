@@ -1,14 +1,22 @@
 import React from 'react'
-import galleryImages from '../../images/gallery-images'
 import { Image, Transformation, CloudinaryContext } from 'cloudinary-react'
 import ImageInfo from '../../components/ImageInfo/ImageInfo'
 import './Gallery.css'
 import './GalleryFullScreen.css'
+import './ImageEditor.css'
+import config from '../../config'
+import ApiServices from '../../services/api-services'
+import Rename from '../../components/Rename/Rename'
+import AdminAddImage from '../../components/AdminAddImage/AdminAddImage'
+import AddImageForm from '../../components/AddImageForm/AddImageForm'
+import DeleteImage from '../../components/DeleteImage/DeleteImage'
 
 export default class Gallery extends React.Component {
   state = {
     index: 1,
+    category: '',
     images: null,
+    allImages: null,
     fullScreen: false,
     fullScreenImage: null,
     fullScreenImageUrl: '',
@@ -17,13 +25,25 @@ export default class Gallery extends React.Component {
     moreInfoDisableClose: '',
     galleryDisabled: '',
     fadeOut: '',
+
+    lastPage: '',
+
+    renamingImage: false,
+    renamedImageId: null,
+    renamedImageName: '',
+    oldName: '',
+
+    addingImage: false,
+    deletingImage: false,
+    imageToDelete: '',
   }
 
-  componentDidMount() {
-    this.setDisplayedImages()
+  componentDidMount = async() => {
+    await this.setDisplayedImages()
+    this.checkIfLastPage()
   }
 
-  setDisplayedImages = () => {
+  setDisplayedImages = async() => {
     // Each page diplays a maximium of 12 images
     // So we take the index and multiply it by 12 (1*12=12, 2*12=24, etc...)
     // We want the range of images to be between this new value (12)
@@ -47,10 +67,56 @@ export default class Gallery extends React.Component {
     // only have 6 images, the 6 images will be displayed without
     // any problems.
 
-    const images = galleryImages[category].slice(imagesDisplayed - 12, imagesDisplayed)
+    const allImages = await ApiServices.getImagesByCategory(category)
 
-    this.setState({ images })
+    const images = allImages.images.slice(imagesDisplayed - 12, imagesDisplayed)
+
+    await this.setState({ images, category, allImages: allImages.images })
+    this.checkIfLastPage()
   }
+
+  // RENAMING -----------------------
+  showRenameBox = (event) => {
+    event.preventDefault()
+    const { id, name } = event.target
+    this.setState({ 
+      renamingImage: true,
+      renamedImageId: id,
+      oldName: name,
+    })
+  }
+
+  hideRenameBox = (event) => {
+    event.preventDefault()
+    this.setState({ 
+      renamingImage: false,
+      renamedImageId: null,
+      renamedImageName: '',
+      oldName: '',
+    })
+  }
+
+  setNewName = (newName) => {
+    this.setState({
+      renamedImageName: newName,
+    })
+  }
+
+  handleSubmitRename = (event) => {
+    event.preventDefault()
+    const { renamedImageId, renamedImageName } = this.state
+
+    ApiServices.changeImageName(renamedImageId, renamedImageName)
+      .then(() => {
+        this.setState({
+          renamingImage: false,
+          renamedImageId: null,
+          renamedImageName: '',
+          oldName: '',
+        })
+      }).then(() => this.setDisplayedImages())
+  }
+  // -------------------------------
 
   createImageElements = () => {
     // Each image object in the state is used to create these elements
@@ -58,6 +124,7 @@ export default class Gallery extends React.Component {
     // located in this.props.match.params.category
 
     const { images } = this.state
+    const mollyToken = window.localStorage.getItem('mollylandToken')
     let i = -1;
 
     return images.map(image => {
@@ -66,6 +133,22 @@ export default class Gallery extends React.Component {
         <section 
           className={`gallery-image ${image.name}`}
           key={image.name}>
+
+          {mollyToken && 
+            <section className='auth-options'>
+              <button className='auth-rename'
+                id={image.id}
+                name={image.name}
+                onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
+              </button>
+              <button 
+                className='auth-delete'
+                id={image.id}
+                onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
+              </button>
+            </section>
+          }
+
           <div 
             className='gallery-image-wrapper'
             url={image.url}
@@ -80,6 +163,7 @@ export default class Gallery extends React.Component {
     })
   }
 
+  // FULL SCREEN -------------------
   handleFullScreen = (event) => {
     // The gallery is disabled during fullscreen mode
     // in order to prevent scrolling 
@@ -120,6 +204,87 @@ export default class Gallery extends React.Component {
     }, 450)
   }
 
+  handleShowMoreInfo = async() => {
+    const { moreInfo } = this.state
+
+    if(!moreInfo) {
+      this.setState({ 
+        moreInfo: !moreInfo,
+        moreInfoDisableClose: 'disable-close',
+      })
+      return
+    }
+
+    else if(moreInfo) {
+      await this.setState({ moreInfoFadeOut: 'moreInfoFadeOut' })
+
+      setTimeout(() => {
+        this.setState({
+          moreInfoFadeOut: '',
+          moreInfo: !moreInfo,
+          moreInfoDisableClose: '',
+        })
+      }, 180)
+    }
+  }
+  // -------------------------------
+
+  // ADD IMAGE----------------------
+  showAddImageForm = () => {
+    this.setState({ addingImage: true })
+  }
+
+  hideAddImageForm = () => {
+    this.setState({ addingImage: false })
+  }
+
+  handleAddImage = (event) => {
+    event.preventDefault()
+
+    const { category } = this.state
+    const url = event.target.addurl.value
+    const name = event.target.addname.value
+    const year = event.target.addyear.value
+
+    let newImage = { category, url, name }
+
+    if (year) {
+      newImage.year = year
+    }
+
+    ApiServices.addNewImage(newImage)
+      .then(() => this.setState({ addingImage: false }))
+      .then(() => this.setDisplayedImages())
+      .catch(e => console.error(e))
+  }
+  //--------------------------------
+
+  // DELETE IMAGE
+  showDeleteConfirmation = (event) => {
+    const id = event.target.id
+    this.setState({ 
+      deletingImage: true,
+      imageToDelete: id
+    })
+  }
+
+  hideDeleteConfirmation = () => {
+    this.setState({ deletingImage: false })
+  }
+
+  handleDeleteImage = () => {
+    const { imageToDelete } = this.state
+    let id = parseInt(imageToDelete, 10)
+    
+    ApiServices.deleteImage(id)
+      .then(() => this.setState({ deletingImage: false }))
+      .then(() => this.setState({ imageToDelete: '' }))
+      .then(() => this.setDisplayedImages())
+      .catch(e => console.error(e))
+  }
+  //-----
+
+  // NEXT AND PREV -----------------
   handleNext = async() => {
     // Wow does this need to be so complicated?
     // Here I'm simply moving the index up by one,
@@ -151,11 +316,24 @@ export default class Gallery extends React.Component {
     // exists to change the color
     // of the Prev and Next buttons
 
-    const { images } = this.state
+    const { index, images, allImages } = this.state
+    const i = index + 1
 
-    if (!images) return ''
-
-    return (images.length === 12) ? '' : 'last-page'
+    if (!images) {
+      return
+    }
+    if (images.length < 12) {
+      this.setState({ lastPage: 'last-page' })
+      return
+    }
+    if (!allImages[i * 12]) {
+      this.setState({ lastPage: 'last-page' })
+      return
+    }
+    else {
+      this.setState({ lastPage: '' })
+      return
+    }
   }
 
   checkIfFirstPage = () => {
@@ -163,41 +341,41 @@ export default class Gallery extends React.Component {
 
     return (index <= 1) ? 'first-page' : ''
   }
-
-  handleShowMoreInfo = async() => {
-    const { moreInfo } = this.state
-
-    if(!moreInfo) {
-      this.setState({ 
-        moreInfo: !moreInfo,
-        moreInfoDisableClose: 'disable-close',
-      })
-      return
-    }
-
-    else if(moreInfo) {
-      await this.setState({ moreInfoFadeOut: 'moreInfoFadeOut' })
-
-      setTimeout(() => {
-        this.setState({
-          moreInfoFadeOut: '',
-          moreInfo: !moreInfo,
-          moreInfoDisableClose: '',
-        })
-      }, 180)
-    }
-  }
+  // -------------------------------
 
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
-      moreInfoDisableClose } = this.state
+      moreInfoDisableClose, renamingImage, oldName, addingImage, deletingImage, lastPage } = this.state
       
     const firstPage = this.checkIfFirstPage()
-    const lastPage = this.checkIfLastPage()
+    const hasToken = window.localStorage.getItem('mollylandToken')
 
     return(
       <section className='gallery-wrapper'>
+
+        { !!addingImage &&  
+          <AddImageForm
+            hideAddImageForm={this.hideAddImageForm}
+            handleAddImage={this.handleAddImage}
+          />
+        }
+
+        { !!deletingImage &&
+          <DeleteImage 
+            hideDeleteConfirmation={this.hideDeleteConfirmation}
+            handleDeleteImage={this.handleDeleteImage}
+          />
+        }
+
+        { !!renamingImage &&
+          <Rename
+            name={oldName} 
+            setNewName={this.setNewName}
+            hideRenameBox={this.hideRenameBox}
+            handleSubmitRename={this.handleSubmitRename}
+          />
+        }
 
         { !!fullScreen && 
         <div className={`fullscreen-wrapper ${fadeOut}`}>
@@ -214,7 +392,7 @@ export default class Gallery extends React.Component {
           <div className={'fullscreen-background ' + moreInfoDisableClose}
             onClick={() => this.handleDisableFullScreen()}>
 
-            <CloudinaryContext cloudName='dghqlm5xb'>
+            <CloudinaryContext cloudName={config.CLOUD_KEY}>
               <Image publicId={fullScreenImageUrl} />
             </CloudinaryContext>
 
@@ -222,9 +400,13 @@ export default class Gallery extends React.Component {
         </div>
         }
 
+        { !!hasToken && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+
         <div className={`image-area ${galleryDisabled}`}>
-          <CloudinaryContext cloudName='dghqlm5xb'>
+          <CloudinaryContext cloudName={config.CLOUD_KEY}>
             { !!images && this.createImageElements() }
+            {/* { !!hasToken && images && images.length < 12 && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+            { !!hasToken && images && images.length === 12 && !!lastPage && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> } */}
           </CloudinaryContext>
         </div> 
 

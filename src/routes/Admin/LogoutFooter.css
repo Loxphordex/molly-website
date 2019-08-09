@@ -1,0 +1,34 @@
+.logout-footer {
+  display: block;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.logout-footer button {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 22px;
+  font-weight: 500;
+  min-height: 50px;
+  padding: 0;
+
+  background-color: rgb(241, 107, 45);
+  border: none;
+
+  color: rgb(255, 255, 255);
+  outline: none;
+
+  cursor: pointer;
+}
+
+.logout-footer button:hover {
+  background-color: rgb(202, 85, 30);
+}
+
+@media only screen and (min-width: 768px) {
+  .logout-footer button {
+    min-height: 20px;
+  }
+}
