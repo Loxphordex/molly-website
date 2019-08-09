@@ -352,11 +352,13 @@ export default class Gallery extends React.Component {
         </div>
         }
 
+        { !!hasToken && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+
         <div className={`image-area ${galleryDisabled}`}>
           <CloudinaryContext cloudName={config.CLOUD_KEY}>
             { !!images && this.createImageElements() }
-            { !!hasToken && images && images.length < 12 && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
-            { !!hasToken && images && images.length === 12 && !!lastPage && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+            {/* { !!hasToken && images && images.length < 12 && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> }
+            { !!hasToken && images && images.length === 12 && !!lastPage && <AdminAddImage showAddImageForm={() => this.showAddImageForm()} /> } */}
           </CloudinaryContext>
         </div> 
 

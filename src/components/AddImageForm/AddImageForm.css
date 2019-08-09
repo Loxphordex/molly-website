@@ -82,6 +82,28 @@
     background-color: rgb(250, 249, 249);
 }
 
-.add-image-cancel {
+.add-image-cancel:hover {
     background-color: rgb(230, 94, 31);
+}
+
+@media only screen and (min-width: 768px) {
+  .add-image-form {
+    min-height: 40vh;
+    width: 40%;
+    min-width: 450px;
+    max-width: 700px;
+    margin-top: 20vh;
+  }
+
+  .add-image-form button,
+  .add-image-form input {
+    font-size: 16px;
+    min-height: 30px;
+    margin: 1% auto;
+  }
+
+  .add-image-form button {
+    margin: 0 auto;
+    margin-top: 4%;
+  }
 }

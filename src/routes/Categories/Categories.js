@@ -25,7 +25,7 @@ export default class Categories extends React.Component {
     return(
       <div className={`category c-${cat.name}`} key={cat.name}>
         <Image publicId={cat.url} type='fetch' name={cat.name}>
-          <Transformation quality='60' width='300' crop='scale' />
+          <Transformation quality='90' width='900' crop='scale' />
         </Image>
         <Link to={`/gallery/${cat.name}`}>{cat.name.toUpperCase()}</Link>
       </div>
