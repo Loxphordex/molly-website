@@ -81,6 +81,7 @@
 
 .last-page, .first-page {
   color: rgb(163, 163, 163);
+  pointer-events: none;
 }
 
 

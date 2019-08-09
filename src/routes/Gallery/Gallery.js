@@ -15,6 +15,7 @@ export default class Gallery extends React.Component {
     index: 1,
     category: '',
     images: null,
+    allImages: null,
     fullScreen: false,
     fullScreenImage: null,
     fullScreenImageUrl: '',
@@ -24,6 +25,8 @@ export default class Gallery extends React.Component {
     galleryDisabled: '',
     fadeOut: '',
 
+    lastPage: '',
+
     renamingImage: false,
     renamedImageId: null,
     renamedImageName: '',
@@ -32,8 +35,9 @@ export default class Gallery extends React.Component {
     addingImage: false,
   }
 
-  componentDidMount() {
-    this.setDisplayedImages()
+  componentDidMount = async() => {
+    await this.setDisplayedImages()
+    this.checkIfLastPage()
   }
 
   setDisplayedImages = async() => {
@@ -45,7 +49,6 @@ export default class Gallery extends React.Component {
 
     const { index } = this.state
     const category = this.props.match.params.category
-    console.log(category)
 
     if(!category) {
       // Make sure to redirect to the 404 error page
@@ -65,7 +68,8 @@ export default class Gallery extends React.Component {
 
     const images = allImages.images.slice(imagesDisplayed - 12, imagesDisplayed)
 
-    this.setState({ images, category })
+    await this.setState({ images, category, allImages: allImages.images })
+    this.checkIfLastPage()
   }
 
   // RENAMING -----------------------
@@ -230,7 +234,6 @@ export default class Gallery extends React.Component {
 
   handleAddImage = (event) => {
     event.preventDefault()
-    console.log(event.target.addurl.value)
 
     const { category } = this.state
     const url = event.target.addurl.value
@@ -238,7 +241,6 @@ export default class Gallery extends React.Component {
     const year = event.target.addyear.value
 
     let newImage = { category, url, name }
-    console.log(newImage)
 
     if (year) {
       newImage.year = year
@@ -287,11 +289,24 @@ export default class Gallery extends React.Component {
     // exists to change the color
     // of the Prev and Next buttons
 
-    const { images } = this.state
+    const { index, images, allImages } = this.state
+    const i = index + 1
 
-    if (!images) return ''
-
-    return (images.length === 12) ? '' : 'last-page'
+    if (!images) {
+      return
+    }
+    if (images.length < 12) {
+      this.setState({ lastPage: 'last-page' })
+      return
+    }
+    if (!allImages[i * 12]) {
+      this.setState({ lastPage: 'last-page' })
+      return
+    }
+    else {
+      this.setState({ lastPage: '' })
+      return
+    }
   }
 
   checkIfFirstPage = () => {
@@ -304,10 +319,9 @@ export default class Gallery extends React.Component {
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
       galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
-      moreInfoDisableClose, renamingImage, oldName, addingImage } = this.state
+      moreInfoDisableClose, renamingImage, oldName, addingImage, lastPage } = this.state
       
     const firstPage = this.checkIfFirstPage()
-    const lastPage = this.checkIfLastPage()
     const hasToken = window.localStorage.getItem('mollylandToken')
 
     return(

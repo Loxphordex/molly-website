@@ -26,3 +26,9 @@
 .logout-footer button:hover {
   background-color: rgb(202, 85, 30);
 }
+
+@media only screen and (min-width: 768px) {
+  .logout-footer button {
+    min-height: 20px;
+  }
+}
