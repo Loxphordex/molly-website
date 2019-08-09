@@ -75,6 +75,52 @@ export default class Gallery extends React.Component {
     this.checkIfLastPage()
   }
 
+  createImageElements = () => {
+    // Each image object in the state is used to create these elements
+    // Image data type (aka category) is specified by the prop params, 
+    // located in this.props.match.params.category
+
+    const { images } = this.state
+    const mollyToken = window.localStorage.getItem('mollylandToken')
+    let i = -1;
+    
+    return images.map(image => {
+      i++
+        return (
+          <section 
+            className={`gallery-image ${image.name}`}
+            key={image.name}>
+    
+            {mollyToken && 
+              <section className='auth-options'>
+                <button className='auth-rename'
+                  id={image.id}
+                  name={image.name}
+                  onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
+                </button>
+                <button 
+                  className='auth-delete'
+                  id={image.id}
+                  onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
+                </button>
+              </section>
+            }
+    
+            <div 
+              className='gallery-image-wrapper'
+              url={image.url}
+              onClick={(event) => this.handleFullScreen(event)}>
+              <Image publicId={image.url} type='fetch' name={i}>
+                <Transformation quality="60" width="850" crop="scale" />
+              </Image>
+            </div>
+    
+          </section>
+        )
+      })
+
+  }
+  
   // RENAMING -----------------------
   showRenameBox = (event) => {
     event.preventDefault()
@@ -117,51 +163,6 @@ export default class Gallery extends React.Component {
       }).then(() => this.setDisplayedImages())
   }
   // -------------------------------
-
-  createImageElements = () => {
-    // Each image object in the state is used to create these elements
-    // Image data type (aka category) is specified by the prop params, 
-    // located in this.props.match.params.category
-
-    const { images } = this.state
-    const mollyToken = window.localStorage.getItem('mollylandToken')
-    let i = -1;
-
-    return images.map(image => {
-      i++
-      return (
-        <section 
-          className={`gallery-image ${image.name}`}
-          key={image.name}>
-
-          {mollyToken && 
-            <section className='auth-options'>
-              <button className='auth-rename'
-                id={image.id}
-                name={image.name}
-                onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
-              </button>
-              <button 
-                className='auth-delete'
-                id={image.id}
-                onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
-              </button>
-            </section>
-          }
-
-          <div 
-            className='gallery-image-wrapper'
-            url={image.url}
-            onClick={(event) => this.handleFullScreen(event)}>
-            <Image publicId={image.url} type='fetch' name={i}>
-              <Transformation quality="60" width="850" crop="scale" />
-            </Image>
-          </div>
-
-        </section>
-      )
-    })
-  }
 
   // FULL SCREEN -------------------
   handleFullScreen = (event) => {
