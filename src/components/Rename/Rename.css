@@ -96,9 +96,13 @@
     min-width: 450px;
     max-width: 700px;
     margin-top: 20vh;
+    padding-bottom: 2%;
   }
   .rename-form label {
     margin: 5% auto;
+  }
+  #rename-input {
+    margin: 1% auto;
   }
   .rename-form button {
     margin: 1% auto;

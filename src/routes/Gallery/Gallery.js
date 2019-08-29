@@ -32,6 +32,7 @@ export default class Gallery extends React.Component {
     renamedImageId: null,
     renamedImageName: '',
     oldName: '',
+    newYear: '',
 
     addingImage: false,
     deletingImage: false,
@@ -75,6 +76,52 @@ export default class Gallery extends React.Component {
     this.checkIfLastPage()
   }
 
+  createImageElements = () => {
+    // Each image object in the state is used to create these elements
+    // Image data type (aka category) is specified by the prop params, 
+    // located in this.props.match.params.category
+
+    const { images } = this.state
+    const mollyToken = window.localStorage.getItem('mollylandToken')
+    let i = -1;
+    
+    return images.map(image => {
+      i++
+        return (
+          <section 
+            className={`gallery-image ${image.name}`}
+            key={image.name}>
+    
+            {mollyToken && 
+              <section className='auth-options'>
+                <button className='auth-rename'
+                  id={image.id}
+                  name={image.name}
+                  onClick={(event) => this.showRenameBox(event)}>{`RENAME \n"${image.name}" \n ${image.year || ''}`}
+                </button>
+                <button 
+                  className='auth-delete'
+                  id={image.id}
+                  onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
+                </button>
+              </section>
+            }
+    
+            <div 
+              className='gallery-image-wrapper'
+              url={image.url}
+              onClick={(event) => this.handleFullScreen(event)}>
+              <Image publicId={image.url} type='fetch' name={i}>
+                <Transformation quality="60" width="850" crop="scale" />
+              </Image>
+            </div>
+    
+          </section>
+        )
+      })
+
+  }
+
   // RENAMING -----------------------
   showRenameBox = (event) => {
     event.preventDefault()
@@ -102,66 +149,26 @@ export default class Gallery extends React.Component {
     })
   }
 
+  setNewYear = (newYear) => {
+    this.setState({ newYear })
+  }
+
   handleSubmitRename = (event) => {
     event.preventDefault()
-    const { renamedImageId, renamedImageName } = this.state
+    const { renamedImageId, renamedImageName, newYear } = this.state
 
-    ApiServices.changeImageName(renamedImageId, renamedImageName)
+    ApiServices.changeImageName(renamedImageId, renamedImageName, newYear)
       .then(() => {
         this.setState({
           renamingImage: false,
           renamedImageId: null,
           renamedImageName: '',
           oldName: '',
+          newYear: '',
         })
       }).then(() => this.setDisplayedImages())
   }
   // -------------------------------
-
-  createImageElements = () => {
-    // Each image object in the state is used to create these elements
-    // Image data type (aka category) is specified by the prop params, 
-    // located in this.props.match.params.category
-
-    const { images } = this.state
-    const mollyToken = window.localStorage.getItem('mollylandToken')
-    let i = -1;
-
-    return images.map(image => {
-      i++
-      return (
-        <section 
-          className={`gallery-image ${image.name}`}
-          key={image.name}>
-
-          {mollyToken && 
-            <section className='auth-options'>
-              <button className='auth-rename'
-                id={image.id}
-                name={image.name}
-                onClick={(event) => this.showRenameBox(event)}>{`RENAME \n "${image.name}"`}
-              </button>
-              <button 
-                className='auth-delete'
-                id={image.id}
-                onClick={(event) => this.showDeleteConfirmation(event)}>DELETE
-              </button>
-            </section>
-          }
-
-          <div 
-            className='gallery-image-wrapper'
-            url={image.url}
-            onClick={(event) => this.handleFullScreen(event)}>
-            <Image publicId={image.url} type='fetch' name={i}>
-              <Transformation quality="60" width="850" crop="scale" />
-            </Image>
-          </div>
-
-        </section>
-      )
-    })
-  }
 
   // FULL SCREEN -------------------
   handleFullScreen = (event) => {
@@ -345,7 +352,7 @@ export default class Gallery extends React.Component {
 
   render() {
     const { images, fullScreen, fullScreenImage, fullScreenImageUrl,
-      galleryDisabled, fadeOut, moreInfo, moreInfoFadeOut,
+      galleryDisabled, fadeOut, moreInfoFadeOut,
       moreInfoDisableClose, renamingImage, oldName, addingImage, deletingImage, lastPage } = this.state
       
     const firstPage = this.checkIfFirstPage()
@@ -372,6 +379,7 @@ export default class Gallery extends React.Component {
           <Rename
             name={oldName} 
             setNewName={this.setNewName}
+            setNewYear={this.setNewYear}
             hideRenameBox={this.hideRenameBox}
             handleSubmitRename={this.handleSubmitRename}
           />
@@ -380,13 +388,12 @@ export default class Gallery extends React.Component {
         { !!fullScreen && 
         <div className={`fullscreen-wrapper ${fadeOut}`}>
 
-          <i className='fa fa-info-circle' onClick={() => this.handleShowMoreInfo()}></i>
-
-          { !!moreInfo && <ImageInfo
+          <ImageInfo
             image={fullScreenImage}
             handleShowMoreInfo={this.handleShowMoreInfo}
+            handleDisableFullScreen={this.handleDisableFullScreen}
             moreInfoFadeOut={moreInfoFadeOut}
-          />}
+          />
 
 
           <div className={'fullscreen-background ' + moreInfoDisableClose}
