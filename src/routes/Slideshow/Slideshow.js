@@ -42,8 +42,8 @@ export default class Slideshow extends React.Component {
 
         setTimeout(() => {
           this.setState({ transitionStatus: '' })
-        }, 1000);
-      }, 500)
+        }, 500);
+      }, 200)
 
     }, 5000)
   }

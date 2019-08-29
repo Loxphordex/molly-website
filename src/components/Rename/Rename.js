@@ -7,6 +7,7 @@ export default class Rename extends React.Component {
     const { 
       name,
       setNewName,
+      setNewYear,
       hideRenameBox,
       handleSubmitRename,
     } = this.props
@@ -24,6 +25,12 @@ export default class Rename extends React.Component {
             name='rename-input'
             placeholder='New Name'
             onChange={(event) => setNewName(event.target.value)}
+          />
+          <input 
+            id='rename-input'
+            name='year-input'
+            placeholder='New Year'
+            onChange={(event) => setNewYear(event.target.value)}
           />
           <button type='submit' className='submit-rename'>SUBMIT</button>
           <button className='cancel-rename' 

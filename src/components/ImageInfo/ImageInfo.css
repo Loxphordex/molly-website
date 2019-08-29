@@ -12,7 +12,7 @@
 
 .image-info-area {
   width: 100%;
-  height: 200px;
+  height: 15vh;
   max-height: 30vh;
 
   position: fixed;
@@ -30,6 +30,11 @@
           animation: fadein 0.18s;
 }
 
+.image-info-area h2 {
+  margin: 1% auto;
+  font-size: 22px;
+}
+
 .image-info-area h2, .image-info-area p {
   background-color: rgba(31, 31, 31, 0);
   color: white;
@@ -39,4 +44,10 @@
 .moreInfoFadeOut {
   -webkit-animation: fadeOut 0.22s;
   animation: fadeOut 0.22s;
+}
+
+@media only screen and (min-width: 768px) {
+  .image-info-area {
+    height: 10vh;
+  }
 }

@@ -42,8 +42,8 @@ const ApiServices = {
     })
   },
 
-  changeImageName(id, name) {
-    return fetch(`${config.API_ENDPOINT}/api/images?id=${id}&name=${name}`, {
+  changeImageName(id, name, year) {
+    return fetch(`${config.API_ENDPOINT}/api/images?id=${id}&name=${name}&year=${year}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
